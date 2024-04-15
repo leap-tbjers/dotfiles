@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+# -*-mode:bash-*- vim:ft=bash
+# -*-mode:go-template-*- vim:ft=bash
+
+# ~/.local/share/chezmoi/run_onchange_install-packages.sh.tmpl
+# =============================================================================
+# Install packages based on the system.{{- /*
+#
+# This file supports Go's text/template language. */}}
+
+source "{{ .chezmoi.sourceDir }}/script_utils.sh"
+
+{{ $osid := .osid }}
+
+{{ with .packages -}}
+
+{{ if eq $osid "darwin" -}}
+# Mac OS X installation of Homebrew packages
+echo "${green}Installing Homebrew packages${reset}"
+{{ if hasKey . "darwin" -}}
+{{ with .darwin -}}
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range .brews -}}
+brew {{ . | quote }}
+{{ end -}}
+{{ range .casks -}}
+cask {{ . | quote }}
+{{ end -}}
+EOF
+{{ end -}}
+{{ end -}}
+
+{{ else if eq $osid "linux-wolfi" -}}
+
+{{ if hasKey . "wolfi" -}}
+{{ with .wolfi -}}
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range .brews -}}
+brew {{ . | quote }}
+{{ end -}}
+EOF
+{{ end -}}
+{{ end -}}
+
+
+{{ else if eq $osid "fedora-workstation" -}}
+
+# Fedora Workstation installation of packages
+{{ if hasKey . "fedora_workstation" -}}
+{{ with .fedora_workstation -}}
+sudo dnf --quiet install -y dnf-plugins-core
+{{ if hasKey . "repos" -}}
+echo "${green}Adding external repositories${reset}"
+{{ range .repos -}}
+sudo dnf --quiet config-manager --add-repo {{ . | quote }}
+{{ end -}}
+{{ end -}}
+{{ if hasKey . "copr" -}}
+echo "${green}Adding Fedora COPR repositories${reset}"
+{{ range .copr -}}
+sudo dnf --quiet copr enable {{ . | quote }} -y &> /dev/null
+{{ end -}}
+{{ end -}}
+{{ if hasKey . "groups" -}}
+echo "${green}Installing Fedora groups${reset}"
+{{ range .groups -}}
+sudo dnf --quiet group install -y {{ . | quote }}
+{{ end -}}
+{{ end -}}
+{{ if hasKey . "packages" -}}
+echo "${green}Installing Fedora packages${reset}"
+sudo dnf --quiet install -y {{ .packages | join " " }}
+{{ end -}}
+{{ end -}}
+{{ end -}}
+{{ end -}}
+{{ end -}}
+
+# -*-mode:shellscript-*- vim:ft=bash:

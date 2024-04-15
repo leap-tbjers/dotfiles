@@ -1,0 +1,103 @@
+---
+packages:
+  darwin:
+    brews:
+      - antidote
+      - atuin
+      - babel
+      - bat
+      - bottom
+      - cheat
+      - direnv
+      - eza
+      - fzf
+      - ggshield
+      - gh
+      - git
+      - gnupg
+      - golang
+      - golangci-lint
+      - jq
+      - lazygit
+      - mc
+      - neovim
+      - pnpm
+      - ripgrep
+      - starship
+      - tree-sitter
+      - yamlfmt
+      - yamllint
+      - yq
+      - zellij
+      - zoxide
+    casks:
+      - 1password
+      - 1password-cli
+      - alacritty
+      - google-chrome
+      - slack
+
+  wolfi:
+    brews:
+      - atuin
+      - babel
+      - bat
+      - bottom
+      - cheat
+      - direnv
+      - eza
+      - fzf
+      - ggshield
+      - gh
+      - git
+      - gnupg
+      - golang
+      - golangci-lint
+      - jq
+      - lazygit
+      - lm-sensors
+      - neovim
+      - pnpm
+      - pre-commit
+      - ripgrep
+      - starship
+      - tree-sitter
+      - yamlfmt
+      - yamllint
+      - yq
+      - zellij
+      - zoxide
+
+  fedora_workstation:
+    copr:
+      - atim/bottom
+      - atim/lazygit
+      - varlad/zellij
+    groups:
+      - Development Tools
+      - C Development Tools and Libraries
+    repos:
+      - https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+    packages:
+      - bottom
+      - bzip2-devel
+      - cargo
+      - distrobox
+      - eza
+      - fzf
+      - gh
+      - git
+      - golang
+      - jq
+      - lazygit
+      - llvm
+      - lua-devel
+      - luajit
+      - luajit-devel
+      - luarocks
+      - mc
+      - neovim
+      - ranger
+      - ripgrep
+      - tk
+      - zellij

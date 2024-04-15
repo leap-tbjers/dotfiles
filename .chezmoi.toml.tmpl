@@ -1,0 +1,75 @@
+# -*-mode:toml-*- vim:ft=toml
+# -*-mode:go-template-*- vim:ft=toml
+
+# ~/.local/share/chezmoi/.chezmoi.toml.tmpl
+# =============================================================================
+# Used to customize configuration when doing a `chezmoi init`.{{- /*
+#
+# This template file will trigger prompts to fill-in machine-specific
+# templateable values. The resulting file is then created at
+# `~/.config/chezmoi/chezmoi.toml`
+# See https://www.chezmoi.io/docs/how-to/
+#
+# This file supports Go's text/template language. */}}
+
+{{ $codespaces := env "DEVPOD" | not | not -}}
+sourceDir = {{ .chezmoi.sourceDir | quote }}
+
+{{ $name := "" -}}
+{{ $email := "" -}}
+{{ $signingkey := "" -}}
+{{ $colortheme := "" -}}
+{{ $disable_bash_history := false -}}
+
+{{- if $codespaces -}}
+{{    $name = "Torgny Bjers" -}}
+{{    $email = "tbjers@leaptodigital.com" -}}
+{{    $signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDEVS22aLustrLsDLdrOUJwdOB4UAz9VfmvsWCr9FZYF" -}}
+{{    $colortheme = "dracula" -}}
+{{- else if stdinIsATTY -}}
+{{    $name = promptStringOnce . "name" "Name" -}}
+{{    $email = promptStringOnce . "email" "Email address" -}}
+{{    $signingkey = promptStringOnce . "signingkey" "Signing key" -}}
+{{    $colortheme = promptStringOnce . "colortheme" "Color theme (eldritch/nord/dracula/dracula-pro/gruvbox-dark)" -}}
+{{    $disable_bash_history = promptBoolOnce . "disable_bash_history" "Disable bash history" -}}
+{{- end -}}
+
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
+{{- if hasKey .chezmoi.osRelease "variant" -}}
+{{-   $osid = printf "%s-%s" .chezmoi.osRelease.id .chezmoi.osRelease.variant -}}
+{{- end -}}
+
+format = "json"
+color = "on"
+umask = 0o022
+{{- if $codespaces }}{{- else }}
+progress = true
+{{- end }}
+
+[data]
+    codespaces = {{ $codespaces }}
+    email = {{ $email | quote }}
+    name = {{ $name | quote }}
+    signingkey = {{ $signingkey | quote }}
+    osid = {{ $osid | lower | quote }}
+    colortheme = {{ $colortheme | quote }}
+    disable_bash_history = {{ $disable_bash_history }}
+
+[diff]
+    exclude = ["scripts"]
+
+[merge]
+    command = "nvim"
+    args = ["-d"]
+
+[status]
+    exclude = ["scripts"]
+
+[template]
+    options = ["missingkey=error"]
+
+[hooks.read-source-state.pre]
+    command = "{{ .chezmoi.sourceDir }}/.hook-scripts/pre-source-state.sh"
