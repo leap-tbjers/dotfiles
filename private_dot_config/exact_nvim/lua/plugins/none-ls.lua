@@ -1,7 +1,3 @@
--- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
--- Customize None-ls sources
-
 ---@type LazySpec
 return {
   "nvimtools/none-ls.nvim",
@@ -14,8 +10,8 @@ return {
     -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
     config.sources = {
       -- Set a formatter
-      null_ls.builtins.formatting.stylua,
       null_ls.builtins.formatting.prettier,
+      null_ls.builtins.formatting.stylua,
     }
     return config -- return final config table
   end,
