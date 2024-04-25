@@ -1,11 +1,14 @@
 ---@type LazySpec
 return {
   "Mofiqul/dracula.nvim",
-  opts = function(_, opts)
+  config = function()
     local colors = require("dracula").colors()
-    opts.transparent_bg = true
-    opts.overrides = {
-      NotifyBackground = { bg = colors.bg },
+    require("dracula").setup {
+      italic_comment = true,
+      transparent_bg = true,
+      overrides = {},
+      show_end_of_buffer = true,
+      colors = colors,
     }
   end,
 }
