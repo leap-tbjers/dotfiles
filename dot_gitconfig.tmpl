@@ -18,7 +18,11 @@
   format = ssh
 
 [gpg "ssh"]
+{{ if eq .osid "darwin" -}}
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+{{ else -}}
   program = "/opt/1Password/op-ssh-sign"
+{{ end -}}
   allowedSignersFile = {{ .chezmoi.homeDir }}/.ssh/allowed_signers
 
 [commit]

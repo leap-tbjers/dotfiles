@@ -4,9 +4,11 @@
 import = ["{{ .chezmoi.homeDir }}/.config/alacritty/themes/{{ .colortheme }}.toml"]
 live_config_reload = true
 
+{{ if not (eq .osid "darwin") -}}
 [shell]
 program = "distrobox"
 args = ["enter", "bluefin-cli"]
+{{ end -}}
 
 [bell]
 animation = "EaseOutExpo"
@@ -46,7 +48,11 @@ style = "Italic"
 style = "Light Italic"
 
 [font.normal]
+{{ if eq .osid "darwin" -}}
+family = "JetBrainsMono Nerd Font"
+{{ else -}}
 family = "JetBrains Mono"
+{{ end -}}
 style = "Light"
 
 [mouse]

@@ -184,7 +184,11 @@ plugins {
 auto_layout true
 default_layout "compact"
 default_mode "normal"
+{{ if eq .osid "darwin" -}}
+default_shell "zsh"
+{{ else -}}
 default_shell "bash"
+{{ end -}}
 mirror_session true
 mouse_mode true
 on_force_close "detach"

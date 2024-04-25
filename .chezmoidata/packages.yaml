@@ -4,7 +4,6 @@ packages:
     brews:
       - antidote
       - atuin
-      - babel
       - bat
       - bottom
       - cheat
@@ -34,6 +33,7 @@ packages:
       - 1password
       - 1password-cli
       - alacritty
+      - homebrew/cask-fonts/font-jetbrains-mono-nerd-font
       - google-chrome
       - slack
 
