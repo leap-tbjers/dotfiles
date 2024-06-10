@@ -15,4 +15,8 @@ alias lla="eza --long --all --icons --git"
 
 alias cat=bat
 
+if command -v lazygit &>/dev/null; then
+  alias lg=lazygit
+fi
+
 # -*-mode: zsh;-*- vim:ft=zsh:

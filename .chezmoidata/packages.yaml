@@ -12,6 +12,7 @@ packages:
       - ggshield
       - gh
       - git
+      - git-delta
       - glow
       - gnupg
       - golang

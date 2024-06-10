@@ -17,7 +17,7 @@ zellij_tab_name_update() {
   fi
 }
 
-#zellij_tab_name_update
-#chpwd_functions+=(zellij_tab_name_update)
+zellij_tab_name_update
+chpwd_functions+=(zellij_tab_name_update)
 
 # -*-mode: zsh;-*- vim:ft=zsh:
