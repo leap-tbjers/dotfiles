@@ -4,8 +4,11 @@ packages:
     brews:
       - antidote
       - atuin
+      - awscli
+      - awscli-local
       - bottom
       - cheat
+      - colima
       - direnv
       - eza
       - fzf
