@@ -97,6 +97,10 @@
 [commit]
   gpgsign = true
 
+[push]
+  default = current
+  autoSetupRemote = true
+
 [user]
   signingkey = {{ .signingkey | quote }}
   email = {{ .email | quote }}
