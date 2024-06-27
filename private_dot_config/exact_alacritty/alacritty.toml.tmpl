@@ -56,13 +56,17 @@ style = "Light"
 hide_when_typing = true
 
 [window]
-decorations = "none"
+decorations = "None"
 decorations_theme_variant = "Dark"
 dynamic_padding = true
 dynamic_title = true
 opacity = 0.95
+blur = true
 startup_mode = "Maximized"
 title = "Alacritty"
+{{ if eq .chezmoi.os $mac -}}
+option_as_alt = "Both"
+{{- end }}
 
 [window.class]
 general = "Alacritty"
